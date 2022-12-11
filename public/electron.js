@@ -5,10 +5,12 @@ const isDev = require('electron-is-dev');
 
 function createWindow() {
     const win = new BrowserWindow({
-        fullscreen: true,
+        width: 800,
+        height: 600,
         webPreferences: {
             nodeIntegration: true,
         },
+        show: false
     });
 
     win.loadURL(
@@ -20,6 +22,8 @@ function createWindow() {
     if (isDev) {
         win.webContents.openDevTools({mode: 'detach'});
     }
+
+    win.once('ready-to-show', win.show);
 }
 
 app.whenReady().then(createWindow);
